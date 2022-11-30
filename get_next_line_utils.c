@@ -6,11 +6,12 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:22:39 by jrenault          #+#    #+#             */
-/*   Updated: 2022/11/29 13:36:25 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2022/11/30 14:20:09 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 size_t	ft_strlen(const char *str)
 {
@@ -24,28 +25,30 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin_revchr(const char *overage, const char *stash)
 {
 	int		i;
 	int		j;
+	char	*newstring;
 	char	*concatenation;
 
 	i = 0;
 	j = 0;
-	if (!s1 || !s2)
+	if (!overage || !stash)
 		return (NULL);
+	newstring = ft_rev_strchr_gnl(stash, '\n');
 	concatenation = (char *)malloc(sizeof(char)
-			* (ft_strlen(s1) + ft_strlen(s2) + 1));
+			* (ft_strlen(overage) + ft_strlen(stash) + 1));
 	if (!concatenation)
 		return (NULL);
-	while (s1[i])
+	while (overage[i])
 	{
-		concatenation[i] = s1[i];
+		concatenation[i] = overage[i];
 		i++;
 	}
-	while (s2[j])
+	while (newstring[j])
 	{
-		concatenation[i] = s2[j];
+		concatenation[i] = newstring[j];
 		i++;
 		j++;
 	}
@@ -104,4 +107,27 @@ char	*ft_rev_strchr_gnl(const char *string, int searchedChar)
 		j++;
 	}
 	return (newstring);
+}
+
+void	*ft_memmove(void *dest, const void *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	if (!dest && !src)
+		return (NULL);
+	while (i < size)
+	{
+		if (dest > src)
+		{
+			((char *)dest)[size - 1] = ((char *)src)[size - 1];
+			size--;
+		}
+		else
+		{
+			((char *)dest)[i] = ((char *)src)[i];
+			i++;
+		}
+	}
+	return (dest);
 }

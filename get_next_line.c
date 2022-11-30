@@ -6,31 +6,33 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:00:02 by jrenault          #+#    #+#             */
-/*   Updated: 2022/11/29 15:33:17 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2022/11/30 14:45:41 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
+char	*ft_read_file(int fd, char *buf)
+{
+	char	*temp;
+	int		nbyte;
+
+	if (!buf)
+		buf = malloc(1);
+	temp = (char *)malloc(sizeof(char *) + (BUFFER_SIZE + 1));
+	nbyte = read(fd, buf, BUFFER_SIZE);
+	return (temp);
+}
+
 char	*get_next_line(int fd)
 {
-	int			count_byte;
-	char		buf[BUFFER_SIZE + 1];
-	char		*stash;
+	static char	*buf;
 	char		*line;
-	static char	*overage = NULL;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (!fd || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	stash = (char *)malloc(sizeof(char *) * (BUFFER_SIZE + 1));
-	if (!stash)
-		return (NULL);
-	line = (char *)malloc(sizeof(char *) * (BUFFER_SIZE + 1));
-	if (!line)
-		return (NULL);
-	count_byte = read(fd, buf, BUFFER_SIZE);
-	return (line);
+	ft_read_file(fd, buf);
 }
 
 int	main(void)
@@ -39,13 +41,12 @@ int	main(void)
 	char	*str;
 	int		i;
 
-	i = 2;
 	fd = open("Test1.txt", O_RDONLY);
+	i = 2;
 	while (i > 0)
 	{
 		str = get_next_line(fd);
-//		printf("%s", str);
-//		printf("\n---\n");
+		printf("%s", str);
 		i--;
 	}
 	close(fd);
