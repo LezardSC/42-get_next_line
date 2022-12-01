@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:07:34 by jrenault          #+#    #+#             */
-/*   Updated: 2022/11/30 08:42:09 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2022/12/01 15:44:56 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 12
+#  define BUFFER_SIZE 55
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strjoin_revchr(const char *s1, const char *s2);
+char	*ft_strjoin_gnl(const char *buf, const char *line);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *src);
-char	*ft_strchr_gnl(const char *string, int searchedChar);
-char	*ft_rev_strchr_gnl(const char *string, int searchedChar);
+void	*ft_memmove_gnl(void *dest, const void *src, size_t size);
 
 #endif

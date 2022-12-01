@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:22:39 by jrenault          #+#    #+#             */
-/*   Updated: 2022/11/30 14:20:09 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2022/12/01 15:45:12 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,35 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		i++;
 	}
 	return (i);
 }
 
-char	*ft_strjoin_revchr(const char *overage, const char *stash)
+char	*ft_strjoin_gnl(const char *buf, const char *line)
 {
 	int		i;
 	int		j;
-	char	*newstring;
 	char	*concatenation;
 
 	i = 0;
 	j = 0;
-	if (!overage || !stash)
+	if (!buf || !line)
 		return (NULL);
-	newstring = ft_rev_strchr_gnl(stash, '\n');
 	concatenation = (char *)malloc(sizeof(char)
-			* (ft_strlen(overage) + ft_strlen(stash) + 1));
+			* (ft_strlen(buf) + ft_strlen(line) + 1));
 	if (!concatenation)
 		return (NULL);
-	while (overage[i])
+	while (buf[i])
 	{
-		concatenation[i] = overage[i];
+		concatenation[i] = buf[i];
 		i++;
 	}
-	while (newstring[j])
+	while (line[j])
 	{
-		concatenation[i] = newstring[j];
+		concatenation[i] = line[j];
 		i++;
 		j++;
 	}
@@ -74,42 +72,7 @@ char	*ft_strdup(const char *src)
 	return (((char *)dest));
 }
 
-char	*ft_strchr_gnl(const char *string, int searchedChar)
-{
-	int	i;
-
-	i = 0;
-	while (string[i])
-	{
-		if (string[i] == ((char)searchedChar))
-			return (&((char *)string)[i]);
-		i++;
-	}
-	if (string[i] == ((char)searchedChar))
-		return (&((char *)string)[i]);
-	return (0);
-}
-
-char	*ft_rev_strchr_gnl(const char *string, int searchedChar)
-{
-	int		i;
-	int		j;
-	char	*newstring;
-
-	i = 0;
-	j = 0;
-	newstring = (char *)malloc(sizeof(char *) * (ft_strlen(string) + 1));
-	while (string[i] != searchedChar)
-		i++;
-	while (j < i)
-	{
-		newstring[j] = string[j];
-		j++;
-	}
-	return (newstring);
-}
-
-void	*ft_memmove(void *dest, const void *src, size_t size)
+void	*ft_memmove_gnl(void *dest, const void *src, size_t size)
 {
 	size_t	i;
 
