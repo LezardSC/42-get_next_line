@@ -13,18 +13,22 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-void	*ft_read_file(int fd, char *buf)
+void	ft_read_file(int fd, char *buf)
 {
 	int		nbyte;
 
 	nbyte = 1;
+	if (!(buf[0] == '\0'))
+	{
+		buf[0] = '\0';
+		return ;
+	}
 	nbyte = read(fd, buf, BUFFER_SIZE);
 	if (nbyte == -1)
 	{
 		buf[0] = '\0';
-		return (NULL);
+		return ;
 	}
-	return (NULL);
 }
 
 char	*get_line(char *buf)
@@ -35,7 +39,7 @@ char	*get_line(char *buf)
 	i = 0;
 	while (buf[i] && buf[i] != '\n')
 		i++;
-	line = (char *)malloc(sizeof(char *) * (i + 1));
+	line = ft_calloc(i + 1, sizeof(char *));
 	if (!line)
 		return (NULL);
 	line = ft_memmove_gnl(line, buf, i);
@@ -50,7 +54,6 @@ void	*get_next(char *buf)
 	int		j;
 	int		k;
 
-	temp = (char *)malloc(sizeof(char *) * (ft_strlen(buf) + 1));
 	i = 0;
 	j = 0;
 	k = 0;
@@ -58,6 +61,7 @@ void	*get_next(char *buf)
 		i++;
 	if (!buf[i])
 		return (NULL);
+	temp = (char *)malloc(sizeof(char *) * (ft_strlen(buf) - i + 1));
 	while (buf[i])
 		temp[j++] = buf[i++];
 	temp[j] = '\0';
@@ -79,12 +83,10 @@ char	*get_next_line(int fd)
 	if (!fd || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	ft_read_file(fd, buf);
-	if (buf[0] == '\0')
-		return (NULL);
 	line = get_line(buf);
 	get_next(buf);
-	printf("%s", line);
-	printf("%s", buf);
+	printf("\n\nline : %s\n\n", line);
+	line = ft_strjoin_gnl(line, buf);
 	return (line);
 }
 
@@ -94,10 +96,10 @@ int	main(void)
 	int		i;
 
 	fd = open("LeCorbeauEtLeRenard.txt", O_RDONLY);
-	i = 19;
+	i = 50;
 	while (i > 0)
 	{
-/*		printf("%s", */get_next_line(fd);
+		printf("%s", get_next_line(fd));
 		i--;
 	}
 	close(fd);

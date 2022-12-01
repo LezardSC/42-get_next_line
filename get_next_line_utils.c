@@ -54,24 +54,6 @@ char	*ft_strjoin_gnl(const char *buf, const char *line)
 	return (concatenation);
 }
 
-char	*ft_strdup(const char *src)
-{
-	int		i;
-	char	*dest;
-
-	i = 0;
-	dest = (char *)malloc(sizeof(char) * (ft_strlen(((char *)src)) + 1));
-	if (dest == NULL)
-		return (NULL);
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (((char *)dest));
-}
-
 void	*ft_memmove_gnl(void *dest, const void *src, size_t size)
 {
 	size_t	i;
@@ -93,4 +75,30 @@ void	*ft_memmove_gnl(void *dest, const void *src, size_t size)
 		}
 	}
 	return (dest);
+}
+
+void	*ft_bzero(void *memo, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)memo)[i] = '\0';
+		i++;
+	}
+	return (memo);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*memory_zone;
+
+	if (size > 0 && count > SIZE_MAX / size)
+		return (0);
+	memory_zone = malloc(count * size);
+	if (!memory_zone)
+		return (NULL);
+	ft_bzero(memory_zone, (count * size));
+	return (memory_zone);
 }
