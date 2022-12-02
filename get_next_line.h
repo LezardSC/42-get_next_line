@@ -24,8 +24,8 @@
 char	*get_next_line(int fd);
 char	*ft_strjoin_gnl(char *buf, char *line);
 size_t	ft_strlen(const char *str);
-void	ft_memmove_gnl(void *dest, void *src, size_t size);
 void	*ft_bzero(void *memo, size_t n);
 void	*ft_calloc(size_t count, size_t size);
+char	*ft_strdup(const char *src);
 
 #endif
