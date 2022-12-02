@@ -25,24 +25,33 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin_gnl(const char *buf, const char *line)
+char	*ft_strjoin_gnl(char *buf, char *line)
 {
 	int		i;
 	int		j;
+	int		cleanbuf;
 	char	*concatenation;
 
 	i = 0;
 	j = 0;
+	cleanbuf = 0;
 	if (!buf || !line)
 		return (NULL);
 	concatenation = (char *)malloc(sizeof(char)
 			* (ft_strlen(buf) + ft_strlen(line) + 1));
 	if (!concatenation)
 		return (NULL);
-	while (buf[i])
+	while (buf[i] && buf[i] != '\n')
 	{
 		concatenation[i] = buf[i];
 		i++;
+		cleanbuf++;
+	}
+	while (buf[cleanbuf])
+		cleanbuf++;
+	if (buf[i] == '\n')
+	{
+		ft_memmove_gnl(buf, &buf[i], i - cleanbuf);
 	}
 	while (line[j])
 	{
@@ -54,13 +63,13 @@ char	*ft_strjoin_gnl(const char *buf, const char *line)
 	return (concatenation);
 }
 
-void	*ft_memmove_gnl(void *dest, const void *src, size_t size)
+void	ft_memmove_gnl(void *dest, void *src, size_t size)
 {
 	size_t	i;
 
 	i = 0;
 	if (!dest && !src)
-		return (NULL);
+		return ;
 	while (i < size)
 	{
 		if (dest > src)
@@ -74,7 +83,6 @@ void	*ft_memmove_gnl(void *dest, const void *src, size_t size)
 			i++;
 		}
 	}
-	return (dest);
 }
 
 void	*ft_bzero(void *memo, size_t n)
