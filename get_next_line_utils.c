@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:22:39 by jrenault          #+#    #+#             */
-/*   Updated: 2022/12/01 15:45:12 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2022/12/04 17:51:34 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,19 @@ char	*ft_strjoin_gnl(char *buf, char *line)
 			sizeof(char *));
 	if (!concatenation)
 		return (NULL);
-	while (buf[i] && buf[i] != '\n')
+	while (line[i])
 	{
-		concatenation[i] = buf[i];
+		concatenation[i] = line[i];
 		i++;
 	}
-	while (line[j])
+	while (buf[j] && buf[j] != '\n')
 	{
-		concatenation[i] = line[j];
+		concatenation[i] = buf[j];
 		i++;
 		j++;
 	}
-	return (concatenation);
+	concatenation[i] = buf[j];
+	return (free(line), concatenation);
 }
 
 void	*ft_bzero(void *memo, size_t n)
@@ -95,4 +96,27 @@ char	*ft_strdup(const char *src)
 	}
 	dest[i] = '\0';
 	return (((char *)dest));
+}
+
+void	*ft_memmove(void *dest, const void *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	if (!dest && !src)
+		return (NULL);
+	while (i < size)
+	{
+		if (dest > src)
+		{
+			((char *)dest)[size - 1] = ((char *)src)[size - 1];
+			size--;
+		}
+		else
+		{
+			((char *)dest)[i] = ((char *)src)[i];
+			i++;
+		}
+	}
+	return (dest);
 }

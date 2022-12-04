@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 16:04:59 by jrenault          #+#    #+#             */
-/*   Updated: 2022/12/04 18:01:24 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/28 09:00:02 by jrenault          #+#    #+#             */
+/*   Updated: 2022/12/03 16:12:29 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-int	search_backslash_n(char *buffer)
+int	search_return_line(char *buffer)
 {
 	int	i;
 
@@ -32,25 +32,44 @@ int	search_backslash_n(char *buffer)
 void	clean_buffer(char *buffer)
 {
 	int		i;
+	int		search;
+	char	*temp;
 
 	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	ft_memmove(buffer, buffer + i, BUFFER_SIZE - i + 1);
-	printf("%s", buffer);
+	search = search_return_line(buffer);
+	temp = (char *)malloc((BUFFER_SIZE + 1) * (sizeof(char *)));
+	if (search == 0)
+	{
+		while (buffer[i - 1] != '\n')
+			i++;
+		temp = ft_strdup(&buffer[i]);
+		i = -1;
+		while (temp[++i])
+			buffer[i] = temp[i];
+		buffer[i] = '\0';
+		free(temp);
+	}
+	else
+	{
+		free(temp);
+		buffer[0] = '\0';
+	}
 }
 
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
-	char		*line;
 	int			nbyte;
+	char		*line;
 
 	line = ft_calloc(1, 1);
 	nbyte = 1;
-	while (search_backslash_n(buffer))
+	while (search_return_line(buffer))
 	{
 		nbyte = read(fd, buffer, BUFFER_SIZE);
+		if (nbyte == -1)
+			return (NULL);
+		printf("%s", buffer);
 		line = ft_strjoin_gnl(buffer, line);
 		clean_buffer(buffer);
 	}
