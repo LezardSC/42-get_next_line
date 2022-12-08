@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:15:01 by jrenault          #+#    #+#             */
-/*   Updated: 2022/12/08 10:44:49 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2022/12/08 15:53:41 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static char	*get_line(char *buffer, char *line)
 	int	i;
 
 	i = is_backslash_n(buffer);
-	line = ft_strnjoin_gnl(buffer, line, (i + 1));
-	ft_memmove(buffer, buffer + i + 1, BUFFER_SIZE - i);
+	line = ft_strnjoin_gnl(buffer, line, i + 1);
+	buffer = ft_memmove(buffer, buffer + i + 1, BUFFER_SIZE - i);
 	return (line);
 }
 
@@ -47,7 +47,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			nbyte;
 
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	line = NULL;
 	if (buffer[0] != '\0')
