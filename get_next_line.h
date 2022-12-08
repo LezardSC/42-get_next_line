@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 09:07:34 by jrenault          #+#    #+#             */
-/*   Updated: 2022/12/04 17:51:39 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/12/07 15:15:25 by jrenault          #+#    #+#             */
+/*   Updated: 2022/12/08 10:40:48 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,13 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 6
+#  define BUFFER_SIZE 20
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strjoin_gnl(char *buf, char *line);
 size_t	ft_strlen(const char *str);
-void	*ft_bzero(void *memo, size_t n);
-void	*ft_calloc(size_t count, size_t size);
-char	*ft_strdup(const char *src);
+char	*ft_strnjoin_gnl(char *buf, char *line, size_t len);
+void	*ft_memset(void *mem, int newValue, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t size);
 
 #endif
