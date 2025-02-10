@@ -44,6 +44,6 @@ int main(void)
 Run the program and check that it prints each line of the file as expected.
 
 
-#### Author
+### Author
 
 login: jrenault
