@@ -2,7 +2,7 @@
 
 ## Overview
 
-**get_next_line** is a 42 School project is designed to create a function that reads text from a file descriptor one line at a time. Its primary goal is to mimic the behavior of the standard input functions by returning one line with each call. The function must handle dynamic memory allocation, work with a defined buffer size (defaulted to 20 if not specified), and correctly process newlines. In the bonus part of the project, the implementation is extended to support multiple file descriptors simultaneously.
+**get_next_line** is a 42 School project that is designed to create a function that reads text from a file descriptor one line at a time. Its primary goal is to mimic the behavior of the standard input functions by returning one line with each call. The function must handle dynamic memory allocation, work with a defined buffer size (defaulted to 20 if not specified), and correctly process newlines. In the bonus part of the project, the implementation is extended to support multiple file descriptors simultaneously.
 
 This project challenges you to manage file I/O, buffer manipulation, and memory management in C, reinforcing the fundamentals of reading files and handling strings.
 
@@ -42,3 +42,8 @@ int main(void)
 }
 ```
 Run the program and check that it prints each line of the file as expected.
+
+
+#### Author
+
+login: jrenault
